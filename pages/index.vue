@@ -5,7 +5,7 @@
       <div class="container">
         <h1 class="title">Featured Courses</h1>
         <div class="columns">
-          <div class="column is-one-quarter" v-for="course in courses" :key="course._id">
+          <div class="column is-one-third" v-for="course in courses" :key="course._id">
             <!-- CARD-ITEM -->
             <course-card :course="course"/>
             <!-- CARD-ITEM-END -->

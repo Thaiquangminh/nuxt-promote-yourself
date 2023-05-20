@@ -52,7 +52,7 @@
             <a>Sign In With Google</a> &nbsp;·&nbsp;
             <nuxt-link to="/register">Sign Up</nuxt-link> &nbsp;·&nbsp;
 
-            <a href="../">Need Help?</a>
+            <a href="../..">Need Help?</a>
           </p>
         </div>
       </div>
@@ -65,6 +65,7 @@ import {required, email} from 'vuelidate/lib/validators'
 import {mapActions} from 'vuex'
 
 export default {
+  middleware: 'auth',
   data() {
     return {
       form: {
@@ -92,10 +93,13 @@ export default {
       if (!this.$v.form.$invalid) {
         this.login(this.form)
             .then(() => this.$router.push('/'))
-            .catch(() => this.$toasted.error('Email or password is wrong', {duration: 5000}))
+            .catch(() => this.$toasted.error('Email or password is wrong', {
+              position: "bottom-left",
+              duration: 5000
+            }))
       }
     }
-  }
+  },
 }
 </script>
 
