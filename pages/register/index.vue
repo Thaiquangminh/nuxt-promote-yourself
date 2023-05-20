@@ -112,7 +112,7 @@
           <p class="has-text-grey">
             <nuxt-link to="/login">Login</nuxt-link> &nbsp;·&nbsp;
             <a>Sign Up With Google</a> &nbsp;·&nbsp;
-            <a href="../">Need Help?</a>
+            <a href="../..">Need Help?</a>
           </p>
         </div>
       </div>
@@ -131,6 +131,7 @@
 <!-- disable register button if form is $invalid -->
 <script>
 import {required, email, minLength, url, sameAs} from "vuelidate/lib/validators"
+import {mapActions} from 'vuex'
 
 export default {
   data() {
@@ -173,10 +174,20 @@ export default {
     }
   },
   methods: {
+    ...mapActions('auth', ['register']),
     handleRegister() {
       this.$v.form.$touch()
+      if (!this.$v.form.$invalid) {
+        this.register(this.form)
+            .then(() => this.$router.push('/login'))
+            .catch(() => this.$toasted.error('Register failed', {
+              position: "bottom-left",
+              duration: 5000
+            }))
+      }
     }
-  }
+  },
+  middleware: 'auth'
 }
 </script>
 

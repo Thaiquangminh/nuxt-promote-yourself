@@ -53,7 +53,7 @@
               <!-- If Admin -->
               <button
                   v-if="isAdmin" class="button is-link is-outlined"
-                  @click="() => {}">
+                  @click="handleNavigateInstructor">
                 Instructor
               </button>
               <a class="button is-primary" @click="handleLogout">
@@ -94,7 +94,10 @@ export default {
     async handleLogout() {
       await this.logout();
       await this.$router.push('/login')
-    }
+    },
+    handleNavigateInstructor() {
+      this.$router.push('/instructor')
+    },
   }
 }
 </script>

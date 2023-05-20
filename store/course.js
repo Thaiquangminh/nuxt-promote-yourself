@@ -6,7 +6,6 @@ export const actions = {
     fetchCourses({commit}) {
         return this.$axios.$get('/api/v1/products')
             .then(courses => {
-                console.log(courses)
                 commit('setItems', {resource: 'course', items: courses}, {root: true})
             })
     }
