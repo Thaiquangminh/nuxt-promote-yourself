@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     handleEmitData() {
-      this.$emit('updateStepTwoData', {data: this.form.category, isValid: this.isValid})
+      this.$emit('updateStepTwoData', {category: this.form.category, isValid: this.isValid})
     }
   }
 }

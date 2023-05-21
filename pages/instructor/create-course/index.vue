@@ -16,8 +16,9 @@
           <keep-alive>
             <component
                 :is="componentStep"
-                @updateStepOneData="handleUpdateFormData"
-                @updateStepTwoData="handleUpdateFormData"/>
+                ref="componentStep"
+                @updateStepOneData="handleUpdateStepOneData"
+                @updateStepTwoData="handleUpdateStepTwoData"/>
           </keep-alive>
         </div>
         <div class="full-page-footer-row">
@@ -62,9 +63,10 @@ import CreateStepTwo from "@/components/instructor/CreateStepTwo.vue";
 export default {
   layout: 'instructor',
   components: {CreateStepTwo, CreateStepOne, Header},
-  fetch({store}) {
-    store.dispatch('categories/fetchCategories')
+  created() {
+    this.$store.dispatch('categories/fetchCategories')
   },
+
   data() {
     return {
       currentStep: 1,
@@ -96,15 +98,26 @@ export default {
   methods: {
     nextStep() {
       this.currentStep++
+      console.log(this.$refs.componentStep)
+      this.$nextTick(() => {
+        this.canGoNextStep = this.$refs.componentStep.isValid
+      })
     },
     previousStep() {
       this.currentStep--
+      console.log(this.$refs.componentStep)
+      this.canGoNextStep = true
     },
-    handleCreateCourse() {
-      console.log(this.formData)
+    async handleCreateCourse() {
+      await this.$store.dispatch('course/createCourses', this.formData)
+      await this.$router.push('/instructor/courses')
     },
-    handleUpdateFormData(step) {
-      this.formData = {...this.formData, title: step.data, category: step.data}
+    handleUpdateStepOneData(step) {
+      this.formData = {...this.formData, title: step.title}
+      this.canGoNextStep = step.isValid
+    },
+    handleUpdateStepTwoData(step) {
+      this.formData = {...this.formData, category: step.category}
       this.canGoNextStep = step.isValid
     }
   }
