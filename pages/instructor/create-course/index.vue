@@ -11,8 +11,6 @@
       </div>
       <div class="course-create full-page-takeover-container">
         <div class="container">
-          <!--          <CreateStepOne v-show="currentStep === 1"/>-->
-          <!--          <CreateStepTwo v-show="currentStep === 2"/>-->
           <keep-alive>
             <component
                 :is="componentStep"

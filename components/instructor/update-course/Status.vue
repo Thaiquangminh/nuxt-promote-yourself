@@ -7,7 +7,7 @@
       <div class="field">
         <label class="label">Status</label>
         <div class="select is-medium">
-          <select>
+          <select :value="course.status" @change="handleUpdatePage($event.target.value, 'status')">
             <option value="default">Change Status</option>
             <option value="active">
               Active
@@ -21,3 +21,16 @@
     </div>
   </div>
 </template>
+<script>
+import MultiComponentMixin from "@/mixins/MultiComponentMixin";
+
+export default {
+  props: {
+    course: {
+      type: Object,
+      required: true
+    }
+  },
+  mixins: [MultiComponentMixin]
+}
+</script>

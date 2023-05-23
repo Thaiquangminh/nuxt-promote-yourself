@@ -8,6 +8,8 @@
         <label class="label">Price of the course</label>
         <div class="control">
           <input
+              @input="handleUpdatePage($event.target.value, 'price')"
+              :value="course.price"
               class="input is-medium"
               type="text"
               placeholder="179.99">
@@ -17,6 +19,8 @@
         <label class="label">Discounted Price for the course</label>
         <div class="control">
           <input
+              @input="handleUpdatePage($event.target.value, 'discountedPrice')"
+              :value="course.discountedPrice"
               class="input is-medium"
               type="text"
               placeholder="9.99">
@@ -25,3 +29,16 @@
     </div>
   </div>
 </template>
+<script>
+import MultiComponentMixin from "@/mixins/MultiComponentMixin";
+
+export default {
+  props: {
+    course: {
+      type: Object,
+      required: true
+    }
+  },
+  mixins: [MultiComponentMixin],
+}
+</script>
