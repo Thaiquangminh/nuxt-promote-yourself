@@ -9,13 +9,7 @@
     <form class="course-create-form">
       <div class="course-create-form-group">
         <div class="field course-create-form-field control has-icons-right">
-          <input
-              @input="handleEmitData"
-              v-model="form.title"
-              :maxLength="50"
-              type="text"
-              placeholder="e.g. Amazing Course in Flutter!"
-              class="input is-large">
+          <InputCountComponent v-model="form.title" @input="handleEmitData"/>
         </div>
       </div>
     </form>
@@ -24,8 +18,10 @@
 
 <script>
 import {required} from "vuelidate/lib/validators"
+import InputCountComponent from "@/components/form/InputCountComponent.vue";
 
 export default {
+  components: {InputCountComponent},
   data() {
     return {
       form: {
@@ -40,12 +36,12 @@ export default {
   },
   computed: {
     isValid() {
-      return !this.$v.form.$invalid
+      return !this.$v.form.$invalid && this.form.title !== ''
     }
   },
   methods: {
     handleEmitData() {
-      this.$emit('updateStepOneData', {data: this.form.title, isValid: this.isValid})
+      this.$emit('updateStepOneData', {title: this.form.title, isValid: this.isValid})
     }
   }
 }
