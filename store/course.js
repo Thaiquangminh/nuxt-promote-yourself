@@ -1,5 +1,5 @@
 export const state = () => ({
-    items: []
+    items: [],
 })
 
 export const actions = {
@@ -9,6 +9,7 @@ export const actions = {
                 commit('setItems', {resource: 'course', items: courses}, {root: true})
             })
     },
+
     createCourses(_, payload) {
         return this.$axios.$post('/api/v1/products', payload)
     }

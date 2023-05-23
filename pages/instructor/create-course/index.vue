@@ -57,8 +57,8 @@
 
 <script>
 import Header from '@/components/shared/Header.vue'
-import CreateStepOne from "@/components/instructor/CreateStepOne.vue";
-import CreateStepTwo from "@/components/instructor/CreateStepTwo.vue";
+import CreateStepOne from "@/components/instructor/create-course/CreateStepOne.vue";
+import CreateStepTwo from "@/components/instructor/create-course/CreateStepTwo.vue";
 
 export default {
   layout: 'instructor',
