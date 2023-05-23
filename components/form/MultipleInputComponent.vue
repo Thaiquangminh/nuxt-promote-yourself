@@ -49,11 +49,12 @@ export default {
   },
   computed: {
     canDeleteLine() {
-      return this.lines.length > 1
+      return this.lines && this.lines.length > 1
     },
     // logic restrict add line : last line must have value
     canAddLine() {
-      return this.lines[this.lines.length - 1].value !== ''
+      return (this.lines.length > 0 && this.lines[this.lines.length - 1].value !== '')
+          || this.lines && this.lines.length === 0
     }
   },
   methods: {

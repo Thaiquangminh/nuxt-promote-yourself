@@ -1,6 +1,7 @@
 export const state = () => ({
     items: [],
-    item: {}
+    item: {},
+    canUpdateCourse: false,
 })
 
 export const getters = {
@@ -30,7 +31,23 @@ export const actions = {
     },
     updateInputLine({commit}, {field, index, value}) {
         commit('updateInputLine', {field, index, value})
+        commit('setCanUpdateCourse', true)
+    },
+    updatePageInput({commit}, {field, value}) {
+        commit('updatePageInput', {field, value})
+        commit('setCanUpdateCourse', true)
+    },
+    updateCourse({commit, state}) {
+        const course = state.item
+        this.$axios.$patch(`/api/v1/products/${course._id}`, course)
+            .then((response) => {
+                commit('setCourse', response)
+                commit('setCanUpdateCourse', false)
+
+            })
+            .catch(err => Promise.reject(err))
     }
+
 }
 
 export const mutations = {
@@ -40,6 +57,7 @@ export const mutations = {
     setCourse(state, course) {
         state.item = course
     },
+    // logic target student
     addInputLine(state, field) {
         state.item[field].push({value: ''})
     },
@@ -48,5 +66,16 @@ export const mutations = {
     },
     updateInputLine(state, {field, index, value}) {
         state.item[field][index].value = value
+    },
+
+    // logic landing page + price + status
+    updatePageInput(state, {field, value}) {
+        state.item[field] = value
+    },
+
+    // update course
+    setCanUpdateCourse(state, payload) {
+        state.canUpdateCourse = payload
     }
+
 }

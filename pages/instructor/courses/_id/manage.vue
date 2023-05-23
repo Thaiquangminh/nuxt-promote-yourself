@@ -6,7 +6,8 @@
       <template #actionMenu>
         <div class="full-page-takeover-header-button">
           <button
-              @click="() => {}"
+              :disabled="!canUpdateCourse"
+              @click="handleUpdateCourse"
               class="button is-primary is-inverted is-medium is-outlined">
             Save
           </button>
@@ -73,11 +74,15 @@ import Status from "@/components/instructor/update-course/Status.vue";
 import TargetStudent from "@/components/instructor/update-course/TargetStudent.vue";
 import LandingPage from "@/components/instructor/update-course/LandingPage.vue";
 import Price from "@/components/instructor/update-course/Price.vue";
+import Header from "@/components/shared/Header.vue";
+import {mapState} from "vuex";
 
 export default {
+  components: {Header},
   created() {
     console.log(this.course)
     this.$store.dispatch("instructor/instructorCourse/fetchCourseById", this.$route.params.id)
+    this.$store.dispatch('categories/fetchCategories')
   },
   // fetch({store, params}) {
   //   store.dispatch("instructor/instructorCourse/fetchCourseById", params.id)
@@ -89,6 +94,7 @@ export default {
     }
   },
   computed: {
+    ...mapState('instructor/instructorCourse', ['canUpdateCourse']),
     activeComponent() {
       return this.steps[this.activeStep - 1]
     },
@@ -102,8 +108,15 @@ export default {
     },
     activeClass(step) {
       return this.activeStep === step ? 'is-active' : ''
+    },
+    handleUpdateCourse() {
+      this.$store.dispatch('instructor/instructorCourse/updateCourse')
+          .then(() => this.$toasted.success('Update course successfully', {duration: 3000}))
+          .then(() => this.$router.push('/instructor/courses'))
+          .catch(() => this.$toasted.error('Update course failed', {duration: 3000}))
     }
-  }
+  },
+  layout: 'instructor'
 }
 
 </script>
