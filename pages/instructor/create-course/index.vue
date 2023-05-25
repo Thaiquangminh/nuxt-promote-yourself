@@ -60,6 +60,7 @@ import CreateStepTwo from "@/components/instructor/create-course/CreateStepTwo.v
 
 export default {
   layout: 'instructor',
+  middleware: 'admin',
   components: {CreateStepTwo, CreateStepOne, Header},
   created() {
     this.$store.dispatch('categories/fetchCategories')

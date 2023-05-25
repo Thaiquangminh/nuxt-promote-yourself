@@ -79,6 +79,7 @@ import {mapState} from "vuex";
 
 export default {
   components: {Header},
+  middleware: 'admin',
   created() {
     console.log(this.course)
     this.$store.dispatch("instructor/instructorCourse/fetchCourseById", this.$route.params.id)

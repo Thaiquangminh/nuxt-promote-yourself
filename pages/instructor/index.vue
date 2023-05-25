@@ -29,7 +29,7 @@
           </div>
         </div>
         <!-- Go to /instructor/blogs -->
-        <div class="box" @click="() => {}">
+        <div class="box" @click="handleNavigateBlogs">
           <div>
             Blogs
           </div>
@@ -53,6 +53,9 @@ export default {
   methods: {
     handleNavigateCourses() {
       this.$router.push('/instructor/courses')
+    },
+    handleNavigateBlogs() {
+      this.$router.push('/instructor/blogs')
     }
   },
   layout: 'instructor'

@@ -68,6 +68,7 @@ export default {
   //   store.dispatch('instructor/instructorCourse/fetchInstructionCourses')
   // },
   layout: 'instructor',
+  middleware: 'admin',
   components: {Header},
   computed: {
     instructorCourses() {
