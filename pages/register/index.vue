@@ -64,6 +64,7 @@
                       autocomplete="">
                   <div class="form-error" v-if="$v.form.avatar.$error">
                     <span class="help is-danger" v-if="!$v.form.avatar.url">Url format is not valid!</span>
+                    <span v-if="!$v.form.avatar.supportedFileType" class="help is-danger">Selected file type is not valid!</span>
                   </div>
                 </div>
               </div>
@@ -132,6 +133,8 @@
 <script>
 import {required, email, minLength, url, sameAs} from "vuelidate/lib/validators"
 import {mapActions} from 'vuex'
+import MultiComponentMixin from "@/mixins/MultiComponentMixin";
+import {supportedFileType} from "@/ulti/validators";
 
 export default {
   data() {
@@ -146,6 +149,7 @@ export default {
       }
     }
   },
+  mixins: [MultiComponentMixin],
   validations: {
     form: {
       username: {
@@ -161,7 +165,8 @@ export default {
         emailValidate: email
       },
       avatar: {
-        url
+        url,
+        supportedFileType
       },
       password: {
         required,

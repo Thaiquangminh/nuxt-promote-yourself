@@ -97,14 +97,12 @@ export default {
   methods: {
     nextStep() {
       this.currentStep++
-      console.log(this.$refs.componentStep)
       this.$nextTick(() => {
         this.canGoNextStep = this.$refs.componentStep.isValid
       })
     },
     previousStep() {
       this.currentStep--
-      console.log(this.$refs.componentStep)
       this.canGoNextStep = true
     },
     async handleCreateCourse() {

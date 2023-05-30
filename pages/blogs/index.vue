@@ -6,25 +6,14 @@
           <!-- posts -->
           <div class="column is-8">
             <!-- blog -->
-            <div class="section">
+            <div class="section" v-for="blog in allBlogs.blogs" :key="blog._id">
               <div class="post">
-                <div @click="() => {}" class="post-header clickable">
-                  <h4 class="title is-4">Some Blog Title</h4>
-                  <h5 class="subtitle is-5">Some Blog Subtitle</h5>
+                <div @click="$router.push(`/blogs/${blog.title}`)" class="post-header clickable">
+                  <h4 class="title is-4">{{ blog.title || "No title yet " }}</h4>
+                  <h5 class="subtitle is-5">{{ blog.subtitle || "No subtitle yet" }}</h5>
                 </div>
                 <div class="post-content">
-                  by Filip Jerga, Jul 1
-                </div>
-              </div>
-            </div>
-            <div class="section">
-              <div class="post">
-                <div @click="() => {}" class="post-header clickable">
-                  <h4 class="title is-4">Some Blog Title</h4>
-                  <h5 class="subtitle is-5">Some Blog Subtitle</h5>
-                </div>
-                <div class="post-content">
-                  by Filip Jerga, Jul 1
+                  by {{ blog.author.name }}, {{ blog.createdAt | formatDate('L') }}
                 </div>
               </div>
             </div>
@@ -59,7 +48,16 @@
   </div>
 </template>
 <script>
-export default {}
+import {mapState} from "vuex";
+
+export default {
+  created() {
+    this.$store.dispatch('blogs/fetchAllBlogs')
+  },
+  computed: {
+    ...mapState('blogs', ['allBlogs'])
+  }
+}
 </script>
 <style scoped>
 .post-content {
