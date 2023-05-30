@@ -39,7 +39,7 @@
                 </li>
               </ul>
               <p class="menu-label">
-                Course Managment
+                Course Management
               </p>
               <ul class="menu-list">
                 <li>
@@ -81,7 +81,6 @@ export default {
   components: {Header},
   middleware: 'admin',
   created() {
-    console.log(this.course)
     this.$store.dispatch("instructor/instructorCourse/fetchCourseById", this.$route.params.id)
     this.$store.dispatch('categories/fetchCategories')
   },

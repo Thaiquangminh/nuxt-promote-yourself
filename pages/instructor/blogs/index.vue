@@ -23,25 +23,17 @@
             <template>
               <div>
                 <div class="blog-card" v-for="blog in blogs" :key="blog._id"
-                     @click="handleNavigateBlog(blog._id)"
                 >
-                  <h2>{{ blog.title }}</h2>
+                  <h2>{{ displayBlogTitle(blog) }}</h2>
                   <div class="blog-card-footer">
                     <span>
-                      Last Edited 17th December, 2018
+                      Last Edited: {{ blog.updatedAt | formatDate('LLL') }}
                     </span>
+                    <dropdown :items="publicOptions(blog.featured)" @optionChanged="handleOption($event, blog)"/>
                     <!-- Dropdown with menu here -->
                   </div>
                 </div>
-                <div class="blog-card">
-                  <h2>Some Title</h2>
-                  <div class="blog-card-footer">
-                    <span>
-                      Last Edited 17th December, 2018
-                    </span>
-                    <!-- Dropdown with menu here -->
-                  </div>
-                </div>
+                <div v-if="!haveBlog">You have no blog yet !!!</div>
               </div>
               <!-- In case of no drafts blogs  -->
               <!-- <div class="blog-error">
@@ -57,22 +49,70 @@
 <script>
 import Header from '@/components/shared/Header.vue'
 import {mapState} from "vuex";
+import Dropdown from "@/components/shared/Dropdown.vue";
+import {createPublishedOptions} from "@/components/instructor/options";
 
 export default {
+  data() {
+    return {
+      blogsData: [],
+      haveBlog: false
+    }
+  },
   layout: 'instructor',
-  components: {Header},
+  components: {Dropdown, Header},
   created() {
+    this.$store.dispatch('instructor/instructorBlog/fetchBlogs')
+  },
+  beforeMount() {
     this.$store.dispatch('instructor/instructorBlog/fetchBlogs')
   },
   computed: {
     ...mapState('instructor/instructorBlog', ['items']),
     blogs() {
-      return this.items
-    }
+      if (this.items.length === 0) {
+        this.haveBlog = false
+      } else {
+        this.haveBlog = true
+        return this.items
+      }
+    },
+
   },
   methods: {
-    handleNavigateBlog(id) {
-      this.$router.push(`/instructor/blog/${id}`);
+    // handleNavigateBlog(id) {
+    //   this.$router.push(`/instructor/blog/${id}`);
+    // }
+    handleOption(command, blog) {
+      if (command === 'EDIT_BLOG') {
+        this.$router.push(`/instructor/blog/${blog._id}`);
+      }
+      if (command === 'DELETE_BLOG') {
+        this.confirmDelete(blog._id)
+      }
+      if (command === 'TOGGLE_FEATURE') {
+        this.updateBlog(blog)
+      }
+    },
+    updateBlog(blog) {
+      this.$store.dispatch('instructor/blog/updatePublishedBlog')
+      const featured = !blog.featured
+      const featureStatus = featured ? 'Featured' : 'Un-Featured'
+      this.$store.dispatch('instructor/instructorBlog/updateFeaturedBlog', {id: blog._id, featured: featured})
+          .then(_ => this.$toasted.success(`Blog has been ${featureStatus}!`, {duration: 2000}))
+    },
+    confirmDelete(id) {
+      const isConfirm = confirm('Are you sure you want to delete?')
+      if (isConfirm) {
+        this.$store.dispatch('instructor/instructorBlog/deleteBlog', id)
+            .then(() => this.$store.dispatch('instructor/instructorBlog/fetchBlogs'))
+      }
+    },
+    displayBlogTitle(blog) {
+      return blog.title || blog.subtitle || 'Anonymous Blog'
+    },
+    publicOptions(isFeatured) {
+      return createPublishedOptions(isFeatured)
     }
   }
 }

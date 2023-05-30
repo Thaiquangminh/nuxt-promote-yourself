@@ -61,12 +61,12 @@
 import Header from "@/components/shared/Header.vue";
 
 export default {
-  created() {
+  beforeMount() {
     this.$store.dispatch('instructor/instructorCourse/fetchInstructionCourses')
   },
-  // fetch({store}) {
-  //   store.dispatch('instructor/instructorCourse/fetchInstructionCourses')
-  // },
+  fetch({store}) {
+    store.dispatch('instructor/instructorCourse/fetchInstructionCourses')
+  },
   layout: 'instructor',
   middleware: 'admin',
   components: {Header},

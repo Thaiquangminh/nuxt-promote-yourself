@@ -65,8 +65,6 @@ export default {
     Editor, Header, Modal
   },
   fetch({store, params}) {
-    console.log('parent created !!!')
-    console.log(this.blog)
     store.dispatch('instructor/instructorBlog/fetchBlogById', params.id)
   },
   computed: {
