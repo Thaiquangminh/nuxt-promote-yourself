@@ -23,6 +23,7 @@
             <template>
               <div>
                 <div class="blog-card" v-for="blog in blogs" :key="blog._id"
+                     :class="{featured: blog.featured}"
                 >
                   <h2>{{ displayBlogTitle(blog) }}</h2>
                   <div class="blog-card-footer">

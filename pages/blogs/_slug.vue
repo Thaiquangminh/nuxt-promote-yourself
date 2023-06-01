@@ -9,6 +9,14 @@
 import {mapState} from "vuex";
 
 export default {
+  head() {
+    return {
+      title: this.blog.title,
+      meta: [
+        {hid: 'description', name: 'description', content: this.blog.description}
+      ]
+    }
+  },
 
   computed: {
     ...mapState('blogs', ['blog']),

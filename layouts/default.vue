@@ -2,6 +2,7 @@
   <div>
     <nav-bar/>
     <nuxt/>
+    <app-footer/>
   </div>
 </template>
 
@@ -56,4 +57,5 @@ html {
 </style>
 <script setup>
 import NavBar from "@/components/shared/NavBar.vue";
+import AppFooter from "@/components/shared/Footer.vue";
 </script>
