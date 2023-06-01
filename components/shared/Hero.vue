@@ -7,12 +7,12 @@
       </div>
       <div class="container">
         <h1 class="title">
-          Super Amazing Promo
+          Promo your self
         </h1>
         <h2 class="subtitle">
-          Super Amazing Promo Subtitle
+          Everything you need to improve your self
         </h2>
-        <a target="_" :href="'#'" class="button is-danger">Learn More!</a>
+        <a target="_" :href="'/courses'" class="button is-danger">Learn More!</a>
       </div>
     </div>
   </section>

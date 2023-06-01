@@ -1,9 +1,9 @@
 <template>
   <nav class="navbar is-active" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-      <nuxt-link class="navbar-item" to="/">
+      <a class="navbar-item" to="/">
         <h1 class="brand-title">Promo-Yourself</h1>
-      </nuxt-link>
+      </a>
       <!-- Adds click to open -->
       <!-- Adds active class -->
       <a @click="isActive = !isActive"
@@ -117,6 +117,17 @@ export default {
   @media screen and (max-width: 1023px) {
     padding-right: 0px;
   }
+}
+
+.nuxt-link-exact-active {
+  border-bottom: 4px solid #00D1B2FF;
+  font-weight: bold;
+}
+
+.navbar-item {
+  min-width: 100px;
+  display: flex;
+  justify-content: center;
 }
 
 .avatar {
