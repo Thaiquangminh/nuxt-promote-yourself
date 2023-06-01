@@ -16,11 +16,12 @@
     <section class="section">
       <div class="container">
         <h1 class="title">Featured Articles</h1>
-        <div class="columns">
-          <div class="column is-one-quarter">
-            <!-- CARD-ITEM -->
-            <blog-card/>
-            <!-- CARD-ITEM-END -->
+        <div class="columns is-multiline">
+          <div v-for="blog in blogs" class="column is-one-quarter">
+            <blog-card
+                :key="blog._id"
+                :blog="blog"
+            />
           </div>
         </div>
       </div>
@@ -39,11 +40,13 @@ export default {
   components: {BlogCard, Hero, CourseCard},
   computed: {
     ...mapState({
-      courses: state => state.course.items
+      courses: state => state.course.items,
+      blogs: state => state.blogs.featuredBlogs
     })
   },
   async fetch({store}) {
     await store.dispatch('course/fetchCourses')
+    await store.dispatch('blogs/fetchFeaturedBlogs')
   }
 
 }
