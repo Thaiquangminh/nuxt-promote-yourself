@@ -40,11 +40,6 @@ export default {
 
     }
   },
-  data() {
-    return {
-      title: 'Course HTML and CSS'
-    }
-  }
 }
 </script>
 

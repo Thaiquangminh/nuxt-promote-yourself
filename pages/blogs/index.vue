@@ -6,7 +6,7 @@
           <!-- posts -->
           <div class="column is-8">
             <!-- blog -->
-            <div class="section" v-for="blog in allBlogs.blogs" :key="blog._id">
+            <div class="section" v-for="blog in allBlogs" :key="blog._id">
               <div class="post">
                 <div @click="$router.push(`/blogs/${blog.title}`)" class="post-header clickable">
                   <h4 class="title is-4">{{ blog.title || "No title yet " }}</h4>
@@ -33,8 +33,12 @@
                 </div>
                 <div class="sidebar-list">
                   <!-- Featured Blogs -->
-                  <p>
-                    <nuxt-link :to="``">Some favorite blog</nuxt-link>
+                  <p
+                      v-for="fBlog in featuredBlogs"
+                      :key="fBlog._id">
+                    <nuxt-link :to="`/blogs/${fBlog.slug}`">
+                      {{ fBlog.title || "Anonymous title" }}
+                    </nuxt-link>
                   </p>
                   <!-- Featured Blogs -->
                 </div>
@@ -51,11 +55,17 @@
 import {mapState} from "vuex";
 
 export default {
+  head() {
+    return {
+      title: "Amazing tech blog"
+    }
+  },
   created() {
     this.$store.dispatch('blogs/fetchAllBlogs')
+    this.$store.dispatch('blogs/fetchFeaturedBlogs')
   },
   computed: {
-    ...mapState('blogs', ['allBlogs'])
+    ...mapState('blogs', ['allBlogs', 'featuredBlogs'])
   }
 }
 </script>

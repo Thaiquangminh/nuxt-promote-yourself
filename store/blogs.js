@@ -1,15 +1,27 @@
 export const state = () => {
     return {
         allBlogs: [],
-        item: {}
+        item: {},
+        featuredBlogs: []
     }
 }
 
 export const actions = {
     fetchAllBlogs({commit}) {
         this.$axios.$get('/api/v1/blogs')
-            .then((blogs) => {
+            .then((data) => {
+                const {blogs} = data;
                 commit('setAllBlogs', blogs)
+            })
+            .catch((error) => {
+                return Promise.reject(error)
+            })
+    },
+    fetchFeaturedBlogs({commit}) {
+        this.$axios.$get('/api/v1/blogs?filter[featured]=true')
+            .then((data) => {
+                const {blogs} = data
+                commit('setFeaturedBlogs', blogs)
             })
             .catch((error) => {
                 return Promise.reject(error)
@@ -32,5 +44,8 @@ export const mutations = {
     },
     setBlog(state, blog) {
         state.item = blog
+    },
+    setFeaturedBlogs(state, blogs) {
+        state.featuredBlogs = blogs
     }
 }
