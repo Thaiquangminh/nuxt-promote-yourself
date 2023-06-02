@@ -1,0 +1,1 @@
+window.__NUXT__=(function(a){return {staticAssetsBase:"\u002Fnuxt-promote-yourself\u002F_nuxt\u002Fstatic\u002F1685670864",layout:"instructor",error:a,state:a,serverRendered:false,routePath:"\u002Finstructor\u002Fcreate-course",config:{_app:{basePath:"\u002Fnuxt-promote-yourself\u002F",assetsPath:"\u002Fnuxt-promote-yourself\u002F_nuxt\u002F",cdnURL:a}}}}(null));

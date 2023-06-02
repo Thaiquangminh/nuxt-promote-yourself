@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/not-authorized", {data:[{}],fetch:{},mutations:[]});

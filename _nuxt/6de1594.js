@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[8],{596:function(t,n,e){"use strict";e.r(n);var r={head:function(){return{title:"Cv page"}}},l=e(18),component=Object(l.a)(r,(function(){var t=this._self._c;return t("div",[t("iframe",{style:{width:"100%",height:"800px"},attrs:{src:"/Thai-Quang-Minh.pdf"}})])}),[],!1,null,null,null);n.default=component.exports}}]);

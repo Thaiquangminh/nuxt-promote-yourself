@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/not-authenticated", {data:[{}],fetch:{},mutations:[]});
